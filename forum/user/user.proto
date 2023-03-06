@@ -1,0 +1,33 @@
+syntax="proto3";
+package user;
+
+option go_package = "grpc-research/stub/user";
+
+
+message AddUserRequest {
+  string username = 1;
+  string email = 2;
+  string password =3;
+}
+message AddUserResponse {
+  string id = 1;
+}
+message GetUserByIdRequest {
+  string id = 1;
+}
+message GetUserByNameOrEmail {
+  oneof unique {
+    string username = 1;
+    string email = 2;
+  }
+}
+message GetUserResponse {
+  string username = 1;
+  string email = 2;
+  string hashedpassword = 3;
+}
+service User {
+  rpc AddUser (AddUserRequest) returns (AddUserResponse);
+  rpc GetUserById (GetUserByIdRequest) returns (GetUserResponse);
+  rpc GetUser (GetUserByNameOrEmail) returns (GetUserResponse);
+}

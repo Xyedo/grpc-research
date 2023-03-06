@@ -1,0 +1,21 @@
+syntax="proto3";
+
+package comment;
+
+option go_package = "grpc-research/stub/comment";
+
+message Comment {
+  string author =1;
+  string text =2;
+}
+message CommentRequest {
+  int64 postId = 1;
+  string author =2;
+  string text =3;
+}
+message CommentResponse {
+  int64 commentId=1;
+}
+service Comments {
+  rpc CreateComment(CommentRequest) returns (CommentResponse);
+}

@@ -1,0 +1,35 @@
+syntax = "proto3";
+package auth;
+
+option go_package = "grpc-research/stub/auth";
+
+message LoginRequest {
+  oneof auth {
+    string username = 1;
+    string email = 2;
+  }
+  string password =3;
+
+}
+
+message LoginResponse {
+  string accessKey =1;
+  string refreshKey = 2;
+}
+message RefreshRequest {
+  string refreshKey =1;
+}
+message RefreshResponse {
+  string accessKey =1;
+}
+
+message LogoutRequest {
+  string refreshKey =1;
+}
+message LogoutResponse {
+}
+service Auth {
+  rpc Login (LoginRequest) returns (LoginResponse);
+  rpc RefreshAccess (RefreshRequest) returns  (RefreshResponse);
+  rpc Logout (LogoutRequest) returns (LogoutResponse);
+}

@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package post;
+
+import "forum/comment/comment.proto";
+
+option go_package = "grpc-research/stub/post";
+
+message PostForumRequest {
+   string author = 1;
+   string title = 2;
+   string text = 3;
+  repeated string tag = 4;
+}
+message PostForumResponse {
+  int64 postId = 1;
+}
+message GetForumRequest {
+  int64 postId = 1;
+}
+
+message GetForumResponse {
+  string author = 1;
+  string title = 2;
+  string text = 3;
+  repeated string tag = 4;
+  repeated comment.Comment comments = 5;
+}
+
+service Forum {
+  rpc Post (PostForumRequest) returns (PostForumResponse);
+  rpc Get (GetForumRequest) returns (GetForumResponse);
+}
+
+
+
